@@ -1,10 +1,10 @@
 pipeline {
     agent any
       
-    environment {
+/*    environment {
         DOCKER_TOKEN = credentials('DOCKER_ACCESS_TOKEN')
     }
-
+*/
     stages {
         stage('Pull data form git') {
             steps {
@@ -35,7 +35,7 @@ pipeline {
        
         stage ('docker login'){
             steps {
-                sh 'echo $DOCKER_TOKEN | docker login -u gaming7761 --password-stdin'
+                sh 'echo dckr_pat_kF7Lo8M9JBru8jqM01UTWVbE8os | docker login -u gaming7761 --password-stdin'
             }
         }
 
