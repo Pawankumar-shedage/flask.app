@@ -28,7 +28,14 @@ pipeline {
                 sh 'docker build -t gaming7761/myweb .'
             }
         }
-        
+       
+        stage ('docker login'){
+            steps {
+                sh 'echo dckr_pat_kF7Lo8M9JBru8jqM01UTWVbE8os | docker login -u gaming7761 --password-stdin'
+            }
+        }
+
+
         stage('push image') {
             steps {
                 sh 'docker push gaming7761/myweb'
@@ -46,5 +53,14 @@ pipeline {
                 sh 'docker service create --name myservice -p 4000:4000 --replicas 2 gaming7761/myweb'
             }
         }
+        
+        stage ('docker logout') {
+            steps {
+                sh 'echo "Loggin out from docker hub" '
+                sh 'docker logout' 
+            }
+        }
+
     }
 }
+
