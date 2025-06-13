@@ -14,6 +14,7 @@ pipeline {
                 sh 'docker image rm gaming7761/myweb'
             }
         }
+
         stage('Build Image') {
             steps {
                 sh 'ls -l'
@@ -33,7 +34,7 @@ pipeline {
             }
         }
         
-	stage('creat service') {
+	      stage('creat service') {
             steps {
                 sh 'docker service create --name myservice -p 4000:4000 --replicas 2 gaming7761/myweb'
             }
