@@ -1,5 +1,9 @@
 pipeline {
     agent any
+      
+    environment {
+        DOCKER_TOKEN = credentials('DOCKER_ACCESS_TOKEN')
+    }
 
     stages {
         stage('Pull data form git') {
@@ -31,7 +35,7 @@ pipeline {
        
         stage ('docker login'){
             steps {
-                sh 'echo dckr_pat_kF7Lo8M9JBru8jqM01UTWVbE8os | docker login -u gaming7761 --password-stdin'
+                sh 'echo $DOCKER_TOKEN | docker login -u gaming7761 --password-stdin'
             }
         }
 
@@ -48,7 +52,7 @@ pipeline {
             }
         }
         
-	      stage('creat service') {
+	      stage('create service') {
             steps {
                 sh 'docker service create --name myservice -p 4000:4000 --replicas 2 gaming7761/myweb'
             }
