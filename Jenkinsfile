@@ -9,10 +9,17 @@ pipeline {
         }
         
         stage('Delete existing Image') {
-            steps {
-                sh 'ls -l'
-                sh 'docker image rm gaming7761/myweb'
-            }
+              steps {
+                  sh 'ls -l'
+                  sh '''
+                      if docker image inspect gaming7761/myweb > /dev/null 2>&1; then
+                          echo "Image exists. Deleting..."
+                          docker image rm gaming7761/myweb
+                      else
+                          echo "Image does not exist. Skipping deletion."
+                      fi
+                  '''
+              }
         }
 
         stage('Build Image') {
